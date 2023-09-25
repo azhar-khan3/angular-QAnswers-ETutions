@@ -44,8 +44,7 @@ export class QuestionComponent {
   }
 
   onChangeCheckbox(event: any) {
-    console.log(event.target.checked)
-   
+    // console.log(event.target.checked)  
     if (event.target.checked == true) {
       this.newArray.push(event.target.name);
     }
