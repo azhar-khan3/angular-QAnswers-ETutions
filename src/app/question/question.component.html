@@ -1,0 +1,88 @@
+<br>
+<form class="card container" [formGroup]="mainForm">
+    <br>
+    <div *ngFor="let item of data">
+        <div>           
+                <label style="font-weight: bold;">{{item.qarea}}</label>         
+        </div>
+
+        <div *ngIf="item.dropdown ==='para'" class="form-floating">
+            <textarea id="textarea" class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
+             formControlName="answer"></textarea>
+        </div>
+
+        <div *ngIf="item.dropdown ==='checkbox' ">
+            <label style="font-weight: bold;">{{item.qcheck}}</label>
+            <div *ngFor="let option of item.options; let i = index">
+               
+                <div class="form-check" id="check">
+                    <input class="form-check-input" type="checkbox" name="{{option}}" [value]="item.i"
+                        [checked]="false" (change)="onChangeCheckbox($event)">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        {{option}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div> <br>
+
+    <div>
+        <a href="#" style="color:black;font-weight: bold;" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New
+            Question</a>
+    </div>
+    <div style="text-align: right;font-weight: bold;">
+        <button routerLink="/form/answers" (click)="saveData()">Review My Answers ></button>
+    </div>
+    <br>
+</form>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add a New Question</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form [formGroup]="form">
+                    <div class="mb-3">
+                        <select name="dropdown" id="dropdown" class="dropdown-menu1" formControlName="dropdown"
+                            (change)="change()">
+                            <option value="para">Paragraph</option>
+                            <option value="checkbox">Checkbox List</option>
+                        </select>
+                    </div>
+
+                    <div *ngIf="showArea" class="mb-3">
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            placeholder="Type Question Here" formControlName="qarea">
+                    </div>
+
+                    <div *ngIf="showCheck" class="mb-3">
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            placeholder="Type Question Here" formControlName="qcheck">
+                    </div>
+
+                    <div class="mb-3" *ngFor="let i of options"> {{i}} </div>
+                    <div class="mb-3" *ngIf="isCheckbox()">
+                        <input type="text" class="form-control" id="exampleInputPassword1"
+                            placeholder="Add Answer Option" [(ngModel)]="value" [ngModelOptions]="{standalone: true}">
+                    </div>
+                </form>
+            </div>
+            <span class="mb-3" *ngIf="isCheckbox()">
+                <button (click)="incOptions()">Add option</button>
+            </span>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal"
+                    (click)="addForm()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!showData" class="container">
+    <button>Add Question</button>
+</div>
