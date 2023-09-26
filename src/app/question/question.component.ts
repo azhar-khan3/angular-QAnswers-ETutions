@@ -90,8 +90,9 @@ export class QuestionComponent {
   }
 
   saveData() {
+  
     var qarea= this.data.map( (a:any) => a.qarea);
-    this.mainForm.value.qarea = qarea;
+    this.mainForm.value.qarea = qarea.split("");
     var qcheck= this.data.map( (a:any) => a.qcheck);
     this.mainForm.value.qcheck = qcheck;
     this.mainForm.value.checkAnswers = this.newArray;
