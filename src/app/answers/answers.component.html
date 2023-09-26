@@ -16,7 +16,8 @@
         <p></p>
     </div>
 
-    <div>
-        <p>{{row.checkAnswers}}</p>     
+    <div *ngFor="let answer of row.checkAnswers">
+
+        <p>{{answer}}</p>     
     </div>   
 </div>
